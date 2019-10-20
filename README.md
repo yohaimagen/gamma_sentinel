@@ -15,7 +15,7 @@ positional arguments:
   slave                 Slave sentinel SAR image data base dir path
 
 optional arguments:
--h, --help            show this help message and exit
+  -h, --help            show this help message and exit
   -s S                  start processing at one of -- Setupprocdir','Import_SLCs','Download_DEM','Import_DEM','getWidth','D
                         EM_geocode','Resampling','getDEMwidth','Interferogram','Flattening','Filtering','Unwrapping','Geoco
                         ding_back','Make_headers','Disp

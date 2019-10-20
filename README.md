@@ -1,14 +1,14 @@
 # gamma_sentinel
 
-## this repository contains some python shell scripts to help procesing sentinel-1 SAR images with GAMMA remote senssing softwer.
+## This repository contains some python shell scripts to help to process sentinel-1 SAR images with GAMMA remote sensing software.
 
-### sentinel_possesor.py is a shell script that takes two senitnel-1 rwa data direcotris and process them for surface displacment 
+### sentinel_possesor.py is a shell script that takes two sentinel-1 raw data directories and processes them for surface displacement 
 
 usage: sentinel_possesor.py [-h] [-s S] [-e E] [--m_name M_NAME] [--s_name S_NAME] [--pol POL] [--r_looks R_LOOKS]
                             [--a_looks A_LOOKS] [--cc CC] [--clean CLEAN] [--orbit_files ORBIT_FILES]
                             master slave
 
-This program process 2-pass sentinel interferogram from raw data to unwraped phase
+This program process 2-pass sentinel interferogram from raw data to unwrapped phase
 
 positional arguments:  
   master                Master sentinel SAR image data base dir path<br/>
@@ -28,13 +28,13 @@ optional arguments:
   --cc CC               unwraping coherince threshold default: 0.2<br/>
   --clean CLEAN         delete all but output files defualt: false<br/>
   --orbit_files ORBIT_FILES
-                        path to orbit files directory, if not spesfied assume their is a direcory named 'orbit_files' in
+                        path to orbit files directory, if not specified assume there is a directory named 'orbit_files' in
                         the working direcory<br/>
                         
-### extract_bursts_kml.py is a shell script that extract 27 or 28 kml files where each one of the kml file contains the extant of one burst of the sentinel-1 image.
+### extract_bursts_kml.py is a shell script that extracts 27 or 28 kml files where each one of the kml files contains the extant of one burst of the sentinel-1 image.
 usage: extract_bursts_kml.py [-h] [-c C] path name<br/> 
 
-This program generate bursts kml from sentinel raw dir<br/> 
+This program generates bursts kml from sentinel raw dir<br/> 
 
 positional arguments:<br/>
   path        path to sentinel raw dir<br/>
@@ -43,3 +43,4 @@ positional arguments:<br/>
 optional arguments:<br/>
   -h, --help  show this help message and exit<br/>
   -c C        color for polygon lines one of [r:red, b:blue, g:green, y:yellow], defualt red<br/>
+

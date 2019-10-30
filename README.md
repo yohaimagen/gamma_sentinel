@@ -1,6 +1,6 @@
 # gamma_sentinel
 
-## This repository contains some python shell scripts to help to process sentinel-1 SAR images with GAMMA remote sensing software.
+## This repository contains some python shell scripts to help process sentinel-1 SAR images with GAMMA remote sensing software.
 
 ### sentinel_possesor.py is a shell script that takes two sentinel-1 raw data directories and processes them for surface displacement 
 

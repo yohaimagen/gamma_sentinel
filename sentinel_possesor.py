@@ -190,8 +190,9 @@ def Filtering():
     '''
     preforme adaptive filter on interferogram 
     '''
-    execlog('adf flat_%s.int filt_flat_%s.int filt_%s.ccw %s 1.0 32 7 - 0 0 .7' %(interferogram_str, interferogram_str, interferogram_str, width))
+    execlog('adf flat_%s.int filt_flat_%s.int - %s 1.0 32 7 - 0 0 .7' %(interferogram_str, interferogram_str, width))
 def Unwrapping():
+    execlog('cc_wave filt_flat_%s.int - - filt_%s.ccw %s %s %s' %(interferogram_str, interferogram_str, width, cc_win, cc_win))
     execlog('rascc_mask filt_%s.ccw %s.rmli %s 1 1 0 1 1 %s 0. 0.1 0.9 1. .35 1 filt_%s.mask.ras' %(interferogram_str, master, width, cc_threshold, interferogram_str))
     execlog('mcf filt_flat_%s.int filt_%s.ccw filt_%s.mask.ras filt_%s.unw %s 1 - - - - 1 1 1024 1705 1639' %(interferogram_str, interferogram_str, interferogram_str, interferogram_str, width))
 def Geocoding_back():
@@ -226,6 +227,7 @@ arg_parser.add_argument("--pol", help="SLC polarization to extract (hh,hv,vh,vv)
 arg_parser.add_argument("--r_looks", help="number of range looks default: 20")
 arg_parser.add_argument("--a_looks", help="number of azimuth looks default: 4")
 arg_parser.add_argument("--cc", help="unwraping coherince threshold default: 0.2")
+arg_parser.add_argument("--cc_win", help="coherince window size(in pixels) default: 5")
 arg_parser.add_argument("--clean", help="delete all but output files defualt: false")
 arg_parser.add_argument("--orbit_files", help="path to orbit files directory, if not spesfied assume their is a direcory named 'orbit_files' in the working direcory")
 args = arg_parser.parse_args()
@@ -263,21 +265,15 @@ if args.cc:
     cc_threshold = args.cc
 else:
     cc_threshold = '0.2'
+if args.cc_win:
+    cc_win = args.cc_win
+else:
+    cc_win = '5'        
 if args.clean:
     clean = True
 else:
     clean = False
-if args.orbit_files:
-    orbit_files = args.orbit_files
-else:
-    ls = os.listdir('.')
-    if 'orbit_files' not in ls:
-        print 'no orbit files directory'
-        arg_parser.print_help()
-        exit(1)
-    else:
-        orbit_files = 'orbit_files'
-    clean = False
+
 if args.s:
     if not args.s in Process:
         print args.s + "not a process"
@@ -286,7 +282,18 @@ if args.s:
     stage = args.s
 else:
     stage = Process[0]
-
+    
+if args.orbit_files:
+    orbit_files = args.orbit_files
+else:
+    if Process_dict[stage] < 2:
+        ls = os.listdir('.')
+        if 'orbit_files' not in ls:
+            print 'no orbit files directory'
+            arg_parser.print_help()
+            exit(1)
+        else:
+            orbit_files = 'orbit_files'
 if args.e:
     if not args.e in Process:
         print args.e + "not a process"
